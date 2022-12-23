@@ -1,3 +1,5 @@
+import math
+
 C_one = [1, 3.3, 4.7, 6.8, 10, 22, 33, 47, 68, 100, 220, 330, 470]
 C_one = [10**(-6)*x for x in C_one]
 C_two = [1, 1.5, 2.2, 2.7, 3.3, 4.7, 6.8, 10, 22, 100]
@@ -21,14 +23,14 @@ for x in C_one:
         for z in R_p:
             for u in R_one:
                 for v in R_two:
-                    # omega values for alpha = 0
-                    omeg_one = 1 / ((z + v) * x)
-                    omeg_two = 1 / (x * u)
-                    omeg_three = 1/((z+v)*y)
+                    # omega values (in Hertz) for alpha = 0
+                    omeg_one = 1 / (math.pi * 2 * (z + v) * x)
+                    omeg_two = 1 / (math.pi * 2 * x * u)
+                    omeg_three = 1/(math.pi * 2 * (z+v)*y)
                     # gain value for alpha = 1
                     gain = v/(z+u)
                     # set restrictions.
-                    if (1.99 < gain < 2) and (omeg_two < 20) and (20000 < omeg_three):
+                    if (1 < omeg_one) and (1.98 < gain < 2.01) and (omeg_two < 20) and (20000 < omeg_three):
                         print('gain: ' + str(gain))
                         print('omega 1: ' + str(omeg_one))
                         print('omega 2: ' + str(omeg_two))
